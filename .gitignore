@@ -1,7 +1,2 @@
 .env
 .vscode
-/out/version.json
-/redive.log
-/out/redive_tw.db
-/out/redive_tw.db.br
-/out/prev.redive_tw.db

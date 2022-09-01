@@ -3,7 +3,6 @@ import json
 import logging
 import os
 import shutil
-from logging.handlers import RotatingFileHandler
 from os.path import join, dirname, exists
 
 import UnityPy
@@ -102,10 +101,10 @@ def download(path, size, truth_version):
         json.dump({'TruthVersion': version['TruthVersion'], 'hash': version['hash']}, f)
     logging.info('Wrote out new TruthVersion and hash.')
 
-    logging.info("Done")
+    logging.info("Download done.")
 
 
-def guess(end_if_true=False, max_try=20):
+def guess(end_if_true=False, max_try=10):
     logging.info("Start guessing TruthVersion")
     if exists(join(script_dir, "out", "version.json")):
         with open(join(script_dir, "out", "version.json")) as f:
@@ -127,30 +126,28 @@ def guess(end_if_true=False, max_try=20):
         else:
             small += 1
         try_count += 1
-    logging.info("End guess")
+    logging.info("End guess.")
 
 
 def update():
-    guess()
-    if exists(join(script_dir, "out", "version.json")):
-        with open(join(script_dir, "out", "version.json"), "r") as f:
-            last_version = json.load(f)
-            if int(version['TruthVersion']) > int(last_version['TruthVersion']):
-                download(version['path'], version['size'], version['TruthVersion'])
-                return
-            else:
-                logging.info('No update found.')
-                return
-    else:
-        logging.info('No version record found. Starting initialization.')
+    if not exists(join(script_dir, "out", "version.json")):
+        logging.info('No version record found. Starting initialization')
         version.update(initial_version)
+        if not exists(join(script_dir, "out")):
+            os.mkdir(join(script_dir, "out"))
         with open(join(script_dir, "out", "version.json"), 'w') as f:
             json.dump({'TruthVersion': version['TruthVersion'], 'hash': version['hash']}, f)
+        logging.info('Initialization done.')
+    guess()
+    with open(join(script_dir, "out", "version.json"), "r") as f:
+        last_version = json.load(f)
+        if int(version['TruthVersion']) > int(last_version['TruthVersion']):
+            download(version['path'], version['size'], version['TruthVersion'])
+        else:
+            logging.info('No update found.')
 
 
 if __name__ == "__main__":
     FORMAT = "%(asctime)s %(levelname)s: %(message)s"
-    logging.basicConfig(level=logging.INFO, format=FORMAT,
-                        handlers=[RotatingFileHandler(join(script_dir, "redive.log"), maxBytes=1 * 1024 * 1024),
-                                  logging.StreamHandler()])
+    logging.basicConfig(level=logging.INFO, format=FORMAT)
     update()
