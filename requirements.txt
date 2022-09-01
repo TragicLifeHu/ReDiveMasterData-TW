@@ -1,0 +1,10 @@
+Brotli
+certifi
+chardet
+fsb5
+idna
+lz4
+Pillow
+requests
+urllib3
+UnityPy
