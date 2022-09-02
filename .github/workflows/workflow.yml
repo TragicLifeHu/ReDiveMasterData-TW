@@ -1,15 +1,15 @@
-name: Workflow
+name: Update database
 
 on:
   schedule:
     - cron: '0 */2 * * *'
-    - cron: '1 4 * * *'
-    - cron: '1 8 * * *'
+    - cron: '58 3 * * *'
+    - cron: '58 7 * * *'
 
   workflow_dispatch:
 
 jobs:
-  fetch:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,6 +37,6 @@ jobs:
           committer_name: GitHub Actions
           committer_email: 41898282+github-actions[bot]@users.noreply.github.com
           cwd: '.'
-          message: 'Auto update'
+          message: 'Auto update database'
           pathspec_error_handling: ignore
           push: true
