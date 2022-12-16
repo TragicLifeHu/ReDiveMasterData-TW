@@ -1,6 +1,8 @@
 name: Update database
 
 on:
+  push:
+    branches: [ "master" ]
   schedule:
     - cron: '0 */2 * * *'
     - cron: '58 3 * * *'
