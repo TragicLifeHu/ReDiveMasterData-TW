@@ -114,13 +114,13 @@ def guess(end_if_true=False, max_try=10):
         old_version = initial_version
     last_ver = old_version.get("TruthVersion")
     logging.info(f"Last Version: {last_ver}")
-    big, small = int(last_ver[:5]), int(last_ver[6:]) + 1
+    big, small = int(last_ver[:4]), int(last_ver[6:]) + 1
     try_count = 0
     while try_count < max_try:
-        if _validate(f"{big:05d}0{small:02d}"):
+        if _validate(f"{big:04d}00{small:02d}"):
             if end_if_true:
                 break
-        if small >= 20:
+        if try_count == (max_try // 2):
             big += 1
             small = 0
         else:
