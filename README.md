@@ -1,6 +1,6 @@
 # Re:Dive TW Master Data Downloader
 
-Guess the TruthVersion of Princess Connect! Re:Dive Taiwan server and download the database
+Guess the TruthVersion of Princess Connect! Re:Dive Taiwan server and download the database  
 Support both local machine and GitHub Action automation workflow
 
 ## Feature
