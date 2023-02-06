@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB-ACTION: true
-      VERSION-CODE: 'Unknown'
 
     steps:
       - name: Checkout repo
@@ -31,8 +30,8 @@ jobs:
 
       - name: Run script
         run: |
+          echo "{name}={value}" >> $GITHUB_ENV
           python main.py
-          echo ${{ VERSION-CODE }} >> ${{ env.VERSION-CODE }}
 
       - name: Save change
         uses: EndBug/add-and-commit@v9

@@ -148,7 +148,9 @@ def update():
     guess()
     with open(join(script_dir, 'out', 'version.json'), 'r') as f:
         last_version = json.load(f)
-        os.environ['VERSION-CODE'] = str(version['TruthVersion'])
+        env_file = os.getenv('GITHUB_ENV')
+        with open(env_file, "a") as file:
+            file.write(f"VERSION-CODE={str(version['TruthVersion'])}")
         if int(version['TruthVersion']) > int(last_version['TruthVersion']):
             download(version['path'], version['size'], version['TruthVersion'])
         else:
