@@ -43,6 +43,6 @@ jobs:
           committer_name: GitHub Actions
           committer_email: 41898282+github-actions[bot]@users.noreply.github.com
           cwd: '.'
-          message: 'Auto update database: ${{ env.VERSION-CODE }}'
+          message: 'Update database: ${{ env.VERSION-CODE }}'
           pathspec_error_handling: ignore
           push: true
