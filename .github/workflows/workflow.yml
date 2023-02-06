@@ -10,10 +10,6 @@ on:
 
   workflow_dispatch:
 
-env:
-  GITHUB-ACTION: true
-  VERSION-CODE: 'Unknown'
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -47,6 +43,6 @@ jobs:
           committer_name: GitHub Actions
           committer_email: 41898282+github-actions[bot]@users.noreply.github.com
           cwd: '.'
-          message: 'Auto update database: ${{ env.VERSION-CODE }}'
+          message: 'Auto update database: ${{ VERSION-CODE }}'
           pathspec_error_handling: ignore
           push: true
