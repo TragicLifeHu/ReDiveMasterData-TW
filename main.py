@@ -149,7 +149,6 @@ def update():
     with open(join(script_dir, 'out', 'version.json'), 'r') as f:
         last_version = json.load(f)
         os.environ['VERSION-CODE'] = str(version['TruthVersion'])
-        logging.info(f"env: {os.environ.get('VERSION-CODE')}")
         if int(version['TruthVersion']) > int(last_version['TruthVersion']):
             download(version['path'], version['size'], version['TruthVersion'])
         else:
