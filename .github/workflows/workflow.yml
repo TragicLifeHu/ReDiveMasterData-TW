@@ -17,6 +17,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      GITHUB-ACTION: true
+      VERSION-CODE: 'Unknown'
 
     steps:
       - name: Checkout repo
