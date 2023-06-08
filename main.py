@@ -96,7 +96,7 @@ def download(path, size, truth_version):
     if exists(join(script_dir, 'out', 'redive_tw.db')) and not ga_mode:
         logging.info("Detect Non-workflow environment, keep previous database.")
         shutil.copyfile(join(script_dir, 'out', 'redive_tw.db'), join(script_dir, 'out', 'prev.redive_tw.db'))
-    else:
+    elif ga_mode:
         logging.info("Detect GitHub Action environment, drop previous database.")
 
     with open(join(script_dir, 'out', 'redive_tw.db.br'), 'wb') as f:
