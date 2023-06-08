@@ -2,7 +2,7 @@ name: Update database
 
 on:
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: '0 */6 * * *'
     - cron: '58 3 * * *'
     - cron: '58 7 * * *'
 
