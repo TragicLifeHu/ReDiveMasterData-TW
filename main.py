@@ -6,6 +6,8 @@ import shutil
 from os.path import join, dirname, exists
 
 import UnityPy
+import UnityPy.config
+import UnityPy.environment
 import brotli
 import requests
 
@@ -13,9 +15,13 @@ script_dir = dirname(__file__)
 
 HEADER = {'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 10; Pixel 3 XL Build/QQ3A.200805.001)'}
 
-initial_version = {'TruthVersion': '00110001', 'hash': '1730da534a4b8a3c82922a9ded255175'}
+initial_version = {'TruthVersion': '00140001', 'hash': '79fef0b32d0b2773bdd12c60c5ed6d5a'}
 
 version = {}
+
+UnityPy.config.FALLBACK_UNITY_VERSION = '2021.3.20f1'
+
+UnityPy.environment.Environment.version_engine = '2021.3.20f1'
 
 
 def _validate(truth_version):
@@ -149,8 +155,9 @@ def update():
     with open(join(script_dir, 'out', 'version.json'), 'r') as f:
         last_version = json.load(f)
         env_file = os.getenv('GITHUB_ENV')
-        with open(env_file, "a") as file:
-            file.write(f"VERSION-CODE={str(version['TruthVersion'])}")
+        if env_file is not None:
+            with open(env_file, "a") as file:
+                file.write(f"VERSION-CODE={str(version['TruthVersion'])}")
         if int(version['TruthVersion']) > int(last_version['TruthVersion']):
             download(version['path'], version['size'], version['TruthVersion'])
         else:
